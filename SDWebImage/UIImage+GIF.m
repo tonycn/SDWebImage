@@ -10,11 +10,19 @@
 #import <ImageIO/ImageIO.h>
 
 @implementation UIImage (GIF)
+static UIImage * (^gGIFImageWithDataBlock) (NSData *)  = NULL;
++ (void)sd_setGIFImageWithDataBlock:(UIImage * (^) (NSData *))block
+{
+  gGIFImageWithDataBlock = [block copy];
+}
 
 + (UIImage *)sd_animatedGIFWithData:(NSData *)data {
     if (!data) {
         return nil;
     }
+  if (gGIFImageWithDataBlock != NULL) {
+    return gGIFImageWithDataBlock(data);
+  }
 
     CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
 

@@ -10,6 +10,8 @@
 
 @interface UIImage (GIF)
 
++ (void)sd_setGIFImageWithDataBlock:(UIImage * (^) (NSData *))block;
+
 + (UIImage *)sd_animatedGIFNamed:(NSString *)name;
 
 + (UIImage *)sd_animatedGIFWithData:(NSData *)data;
